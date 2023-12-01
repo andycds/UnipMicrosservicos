@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lembretes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
+        integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function obterLembretes() {
+            axios.get('http://localhost:4000/lembretes')
+                .then(r => {
+                    document.getElementById('lemb').value = r.data["1"].texto;
+                })
+        }
+
+        function criarLembrete() {
+            const novoLembrete = document.getElementById('novo').value;
+            axios.post('http://localhost:4000/lembretes', {
+                "texto": novoLembrete
+            }).then(r => console.log("foi"))
+                .catch(r => console.log("erro"));
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="obterLembretes()">Obter</button>
+    <textarea id="lemb"></textarea>
+    <br>
+    <textarea id="novo"></textarea>
+    <button onclick="criarLembrete()">Criar</button>
+</body>
+
+</html>
