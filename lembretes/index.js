@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -11,13 +12,25 @@ app.get('/lembretes', (req, res) => {
     res.send(lembretes);
 });
 
-app.post('/lembretes', (req, res) => {
+app.post('/lembretes', async (req, res) => {
     contador++;
     const { texto } = req.body;
     lembretes[contador] = {
         contador, texto
     };
+    await axios.post("http://localhost:10000/eventos", {
+        tipo: "LembreteCriado",
+        dados: {
+            contador,
+            texto
+        }
+    });
     res.status(201).send(lembretes[contador]);
+});
+
+app.post("/eventos", (req, res) => {
+    console.log(req.body);
+    res.send({ msg: "ok" });
 });
 
 app.listen(4000, () => {
