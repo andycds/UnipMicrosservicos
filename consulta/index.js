@@ -12,7 +12,15 @@ const funcoes = {
         const observacoes = baseConsulta[observacao.lembreteId]["observacoes"] || [];
         observacoes.push(observacao);
         baseConsulta[observacao.lembreteId]["observacoes"] = observacoes;
-    }
+    },
+    ObservacaoClassificada: (observacao) => {
+        console.log(observacao);
+    },
+    ObservacaoAtualizada: (observacao) => {
+        const observacoes = baseConsulta[observacao.lembreteId]["observacoes"];
+        const indice = observacoes.findIndex((o) => o.id === observacao.id);
+        observacoes[indice] = observacao;
+    },
 };
 
 app.get("/lembretes", (req, res) => {

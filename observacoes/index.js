@@ -17,9 +17,18 @@ const funcoes = {
                 id: observacao.id,
                 texto: observacao.texto,
                 lembreteId: observacao.lembreteId,
-                status: observacao.staus
+                status: observacao.status
             }
         });
+    },
+    LembreteCriado: (lembrete) => {
+        console.log(lembrete);
+    },
+    ObservacaoCriada: (observacao) => {
+        console.log(observacao);
+    },
+    ObservacaoAtualizada: (observacao) => {
+        console.log(observacao);
     }
 };
 
@@ -50,6 +59,7 @@ app.get('/lembretes/:id/observacoes', (req, res) => {
 });
 
 app.post("/eventos", (req, res) => {
+    console.log("Evento de Observação: " + req.body.tipo);
     funcoes[req.body.tipo](req.body.dados);
     res.send({ msg: "ok" });
 });
